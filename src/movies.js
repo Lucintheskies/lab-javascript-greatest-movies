@@ -19,9 +19,24 @@ function scoresAverage(moviesArray) {
     return Number(average.toFixed(2));
 }
 
+//should return 0 if an empty array is passed
+function scoresAverage(moviesArray) {
+    if (moviesArray.length === 0) return 0;
+
+    const totalScore = moviesArray.reduce((acc, movie) => acc + (movie.score || 0), 0);
+    const average = totalScore / moviesArray.length;
+    return Number(average.toFixed(2));
+}
+
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
     const dramaMovies = moviesArray.filter(movie => movie.genre.includes("Drama"));
+    return scoresAverage(dramaMovies);
+}
+//should return 0 if there is no Drama movie
+function dramaMoviesScore(moviesArray) {
+    const dramaMovies = moviesArray.filter(movie => movie.genre.includes("Drama"));
+    if (dramaMovies.length === 0) return 0;
     return scoresAverage(dramaMovies);
 }
 
@@ -79,3 +94,50 @@ function bestYearAvg(moviesArray) {
 
     return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
 }
+//should return the correct answer to a single element array//
+function bestYearAvg(moviesArray) {
+    if (moviesArray.length === 0) return null;
+
+    const scoresByYear = moviesArray.reduce((acc, movie) => {
+        if (!acc[movie.year]) {
+            acc[movie.year] = { total: 0, count: 0 };
+        }
+        acc[movie.year].total += movie.score || 0;
+        acc[movie.year].count += 1;
+        return acc;
+    }, {});
+
+    const bestYear = Object.keys(scoresByYear).reduce((best, year) => {
+        const average = scoresByYear[year].total / scoresByYear[year].count;
+        if (!best || average > best.average) {
+            return { year: year, average: average };
+        }
+        return best;
+    }, null);
+
+    return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
+}
+// should return the correct answer to a single element array
+function bestYearAvg(moviesArray) {
+    if (moviesArray.length === 0) return null;
+
+    const scoresByYear = moviesArray.reduce((acc, movie) => {
+        if (!acc[movie.year]) {
+            acc[movie.year] = { total: 0, count: 0 };
+        }
+        acc[movie.year].total += movie.score || 0;
+        acc[movie.year].count += 1;
+        return acc;
+    }, {});
+
+    const bestYear = Object.keys(scoresByYear).reduce((best, year) => {
+        const average = scoresByYear[year].total / scoresByYear[year].count;
+        if (!best || average > best.average) {
+            return { year: year, average: average };
+        }
+        return best;
+    }, null);
+
+    return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
+}
+
