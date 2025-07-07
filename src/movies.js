@@ -140,4 +140,81 @@ function bestYearAvg(moviesArray) {
 
     return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
 }
+// should return the correct answer to a single element array
+function bestYearAvg(moviesArray) {
+    if (moviesArray.length === 0) return null;
 
+    const scoresByYear = moviesArray.reduce((acc, movie) => {
+        if (!acc[movie.year]) {
+            acc[movie.year] = { total: 0, count: 0 };
+        }
+        acc[movie.year].total += movie.score || 0;
+        acc[movie.year].count += 1;
+        return acc;
+    }, {});
+
+    const bestYear = Object.keys(scoresByYear).reduce((best, year) => {
+        const average = scoresByYear[year].total / scoresByYear[year].count;
+        if (!best || average > best.average) {
+            return { year: year, average: average };
+        }
+        return best;
+    }, null);
+
+    return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
+}
+/*should return the correct answer to a single element array*/
+
+
+
+/*should return the correct answer to a multiple elements array*/
+
+
+
+
+/*should return the oldest year when there is a tie*/
+function bestYearAvg(moviesArray) {
+    if (moviesArray.length === 0) return null;
+
+    const scoresByYear = moviesArray.reduce((acc, movie) => {
+        if (!acc[movie.year]) {
+            acc[movie.year] = { total: 0, count: 0 };
+        }
+        acc[movie.year].total += movie.score || 0;
+        acc[movie.year].count += 1;
+        return acc;
+    }, {});
+
+    const bestYear = Object.keys(scoresByYear).reduce((best, year) => {
+        const average = scoresByYear[year].total / scoresByYear[year].count;
+        if (!best || average > best.average) {
+            return { year: year, average: average };
+        }
+        return best;
+    }, null);
+
+    return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
+}
+/*should return the correct answer to a multiple elements array*/
+function bestYearAvg(moviesArray) {
+    if (moviesArray.length === 0) return null;
+
+    const scoresByYear = moviesArray.reduce((acc, movie) => {
+        if (!acc[movie.year]) {
+            acc[movie.year] = { total: 0, count: 0 };
+        }
+        acc[movie.year].total += movie.score || 0;
+        acc[movie.year].count += 1;
+        return acc;
+    }, {});
+
+    const bestYear = Object.keys(scoresByYear).reduce((best, year) => {
+        const average = scoresByYear[year].total / scoresByYear[year].count;
+        if (!best || average > best.average) {
+            return { year: year, average: average };
+        }
+        return best;
+    }, null);
+
+    return `The best year was ${bestYear.year} with an average score of ${bestYear.average.toFixed(2)}`;
+}
